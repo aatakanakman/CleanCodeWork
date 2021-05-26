@@ -1,8 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload'); // modülü kullanıma alıyoruz.
+   
 
 const ejs = require('ejs');
 const path = require('path');
+const fs = require('fs');
 
 const Post = require('./models/Post');
 
@@ -20,6 +23,7 @@ app.set("view engine", "ejs");
 
 
 //Middleware
+app.use(fileUpload());   
 app.use(express.static('public'))
 app.use(express.urlencoded({extended : true}))
 app.use(express.json());
@@ -60,16 +64,25 @@ app.get('/add_post', (req, res) => {
 //!POST
 
 app.post('/add-post', async (req, res) => {
-    await Post.create(req.body)
-    res.redirect('/');
-});
+    const uploadDir = 'public/uploads';
 
+    if (!fs.existsSync(uploadDir)) { // Bunun için const fs = require('fs'); almamız gerekir.
+      fs.mkdirSync(uploadDir);
+    }
 
+    let uploadeImage = req.files.image;
+    let uploadPath = __dirname + '/public/uploads/' + uploadeImage.name;
 
+    uploadeImage.mv(uploadPath, async () => {
+        await Post.create({
+          ...req.body,
+          image: '/uploads/' + uploadeImage.name,
+        });
+        res.redirect('/');
+      });
+    });
 
-
-
-
+    
 const port = 3000;
 app.listen(port, () => {
     console.log(`Servis ${port} 'unda dinleniyor.`)

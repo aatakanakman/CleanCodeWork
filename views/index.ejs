@@ -38,7 +38,8 @@
               <%= posts[i].description %>
             </h3>
           </a>
-          <p class="post-meta"><%= posts[i].dateCreated %></p>
+          <span>posted by <%= posts[i].user %> </span>
+          <p class="post-meta"><%= (posts[i].dateCreated).toISOString().slice(0, 10) %></p>
         </div>
         <hr>
         <% } %>
