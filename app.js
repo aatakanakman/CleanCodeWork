@@ -1,22 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload'); // modülü kullanıma alıyoruz.
-   
-
 const ejs = require('ejs');
-const path = require('path');
-const fs = require('fs');
-
-const Post = require('./models/Post');
+const postController = require('./controllers/postController')
+const pageController = require('./controllers/pageController')
 
 const app = express();
 
 //CONNECT TO DB
-mongoose.connect('mongodb://localhost/clean-test-db', {
+mongoose.connect('mongodb+srv://admin:atakan123@cleanblog.3ldjv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
+}).catch((err)=>{
+    console.log(err)
 })
-
 
 //Tamplate Engine
 app.set("view engine", "ejs");
@@ -30,57 +27,14 @@ app.use(express.json());
 
 
 //ROUTES
-app.get('/', async (req, res) => {
-    const posts = await Post.find({});
-    res.render('index',{
-        posts
-    })
-})
-
-app.get('/posts/:id',  async (req, res) => {
-
-    //console.log(req.params.id)
-    //res.render('post')
-
-    const post = await Post.findById(req.params.id);
-    res.render('post',{post})
-})
-
-app.get('/about', (req, res) => {
-
-    res.render('about')
-})
-app.get('/add_post', (req, res) => {
-
-    res.render('add_post')
-})
-
-// app.get('/posts', (req, res) => {
-
-//     res.render('post')
-// })
-
+app.get('/', postController.getAllPosts)
+app.get('/posts/:id', postController.getPost)
+app.get('/about',pageController.getAboutPage);
+app.get('/add_post',pageController.getAddPostPage)
 
 //!POST
+app.post('/add-post', postController.createPost);
 
-app.post('/add-post', async (req, res) => {
-    const uploadDir = 'public/uploads';
-
-    if (!fs.existsSync(uploadDir)) { // Bunun için const fs = require('fs'); almamız gerekir.
-      fs.mkdirSync(uploadDir);
-    }
-
-    let uploadeImage = req.files.image;
-    let uploadPath = __dirname + '/public/uploads/' + uploadeImage.name;
-
-    uploadeImage.mv(uploadPath, async () => {
-        await Post.create({
-          ...req.body,
-          image: '/uploads/' + uploadeImage.name,
-        });
-        res.redirect('/');
-      });
-    });
 
     
 const port = 3000;
