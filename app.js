@@ -11,7 +11,10 @@ const app = express();
 mongoose.connect('mongodb+srv://admin:atakan123@cleanblog.3ldjv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).catch((err)=>{
+}).then(() => {
+    console.log("DB CONNECTED")
+})
+.catch((err)=>{
     console.log(err)
 })
 
@@ -37,7 +40,7 @@ app.post('/add-post', postController.createPost);
 
 
     
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Servis ${port} 'unda dinleniyor.`)
 })
