@@ -6,4 +6,4 @@ exports.getAboutPage = (req, res) => {
 exports.getAddPostPage = (req, res) => {
 
     res.render('add_post')
-}
+}s

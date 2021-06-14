@@ -39,7 +39,7 @@ app.get('/add_post',pageController.getAddPostPage)
 app.post('/add-post', postController.createPost);
 
 
-    
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Servis ${port} 'unda dinleniyor.`)
