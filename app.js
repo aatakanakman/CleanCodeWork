@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload'); // modülü kullanıma alıyoruz.
 const ejs = require('ejs');
-const postController = require('./controllers/postController')
-const pageController = require('./controllers/pageController')
+const pageRoute = require('./routes/pageRoutes')
+const postRoute = require('./routes/postRoute')
+const categoryRoute = require('./routes/categoryRoutes')
+const authRoute = require('./routes/authRoutes')
 
 const app = express();
 
@@ -30,13 +32,15 @@ app.use(express.json());
 
 
 //ROUTES
-app.get('/', postController.getAllPosts)
-app.get('/posts/:id', postController.getPost)
-app.get('/about',pageController.getAboutPage);
-app.get('/add_post',pageController.getAddPostPage)
+app.use('/',pageRoute)
+app.use('/posts',postRoute)
+app.use('/categories',categoryRoute)
+app.use('/users',authRoute)
 
-//!POST
-app.post('/add-post', postController.createPost);
+
+
+
+
 
 
 

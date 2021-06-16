@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <%- include('partials/_header') -%>
 
-<body>
-
-  <%- include('partials/_navigation') -%>
-
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Clean Blog</h1>
-            <span class="subheading">A Blog Theme by Start Bootstrap</span>
-          </div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1521575107034-e0fa0b594529?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1048&q=80')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Posts</h1>
+          <span class="subheading"></span>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
+
+  <%- include('partials/_navigation') -%>
+
+  
 
   <!-- Main Content -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="col-lg-10 col-md-10 mx-auto">
 
         <% for(let i = 0 ; i < posts.length ; i++) { %>
 
         <div class="post-preview">
-          <a href="/posts/<%= posts[i]._id %>">
+          <a href="/posts/<%= posts[i].slug %>">
             <h2 class="post-title">
               <%= posts[i].title %>
             </h2>
@@ -67,21 +66,31 @@
               <li class="nav-item"><a href="#" class="nav-link tm-paging-link">></a></li> -->
           </ul>
             <%} %>
-      </div>
+            
+        </div>
+      
         <!-- Pager -->
         <div class="clearfix">
           <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
         </div>
       </div>
+
+      <div class="col-lg-2 col-md-5 mx-auto">
+        <h4>Categories</h4>
+        <ul class="list-group list-group-flush">
+          <% for ( let i = 0 ; i < categories.length ; i++) { %>
+            <li><a href="/?categories=<%=categories[i].slug %>"><%=categories[i].name %></a></li>
+            <% } %>
+        </ul>
+      </div>
+      
+      
     </div>
   </div>
-
   <hr>
 
   <%- include('partials/_footer.ejs') -%>
 
  
 
-</body>
 
-</html>

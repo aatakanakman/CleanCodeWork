@@ -1,0 +1,49 @@
+
+<%- include('partials/_header') -%>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('https://images.unsplash.com/photo-1492892132812-a00a8b245c45?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Register</h1>
+            <span class="subheading"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <%- include('partials/_navigation') -%>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-4" style="position: absolute;">
+        <form method="POST" action="/users/register" class="tm-contact-form" encType="multipart/form-data">
+          <div class="form-group" style="margin: 2% 20% ;">
+            <input type="text" name="name" class="form-control rounded-0" placeholder="Name" required="" />
+          </div>
+          <div class="form-group" style="margin: 2% 20% ;">
+            <input type="text" name="email" class="form-control rounded-0" placeholder="Email" required="" />
+          </div>
+          <div class="form-group" style="margin: 2% 20% ;">
+            <input type="password" name="password" class="form-control rounded-0" placeholder="Password" required="" />
+          </div>
+      </div>
+      <div class="form-group mb-3" style="margin: 20% auto;">
+        <button type="submit"
+          class="btn btn-primary rounded-0 d-block ml-auto mr-0 tm-btn-animate tm-btn-submit tm-icon-submit"><span>Submit</span></button>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  
+  
+
+  <%- include('partials/_footer.ejs') -%>
+
+ 
+
